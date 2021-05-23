@@ -22,7 +22,7 @@
                         
                         <div class="card-body">
                           <h5 class="card-title">Decadent Chocolate Birthday Party</h5>
-                          <p class="card-text">If you like chocolate, our Decadante Chocolate Party is for you!  From our platinum triple chocolate cake, to the international chocolate truffle sampler, to gold chocolate fountain, our chocolateers will dazzle your tastebuds .</p><br>
+                          <p class="card-text">If you like chocolate, our Decadante Chocolate Party is for you!  From our platinum triple chocolate cake, to the international chocolate truffle sampler, to gold chocolate fountain, our chocolateers will dazzle your tastebuds.</p><br>
                           <p class="card-text">Number of guests:</p>
                           <select id="prod01" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                             
@@ -33,7 +33,13 @@
                           <a href="#" class="btn btn-primary">Buy now</a>
                         </div>
                     </div>
-
+					<!--setup placement element with 6 installments and initial default value/price of $100 -->
+                    <div id="split_prod01"
+                    	data-splitit="true"
+					    data-splitit-amount="100"
+					    data-splitit-num-installments="6"
+					    data-splitit-type="product-description">
+					</div>
 
                 </div>
                 <div class="col"></div>
@@ -45,7 +51,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <script>
-            (function(i,s,o,g,r,a,m){i['SplititObject']=r;i[r]=i[r]||function(){
+
+   	var activities = document.getElementById("prod01");
+
+
+    activities.addEventListener("change", function() {
+        
+            priceChanged(activities.value);
+        
+    });
+
+    function priceChanged(newValue){
+        // Set the splitit amount with a new value when dropdown used
+        $("#split_prod01").attr('data-splitit-amount', newValue);
+
+        // refresh placement with new information
+        splitit.ui.refresh();
+    }
+        (function(i,s,o,g,r,a,m){i['SplititObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window, document, 'script', '//upstream.production.splitit.com/v1/dist/upstream-messaging.js?v=1', 'splitit');
