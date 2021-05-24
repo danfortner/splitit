@@ -6,16 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Splitit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+    .splitit-flex-field {
+        border-radius: 20px !important;
+        background-color: white !important;
+        padding-top: 7px !important;
+        padding-bottom: 5px !important;
+        height: 40px !important;
+    }
+	</style>
 </head>
 <body>
     <main>
-    	<p>The Chocolate Party Associates, Inc.</p>
+    	<h1>Chocolate Party Associates, Inc.</h1><br>
         <section class="container">
             <div class="row">
-
                 <div class="col">
+
+<!-- Step 2: Simple HTML page with upstream messaging -->
                     <div class="card" style="width: 18rem;">
-                        
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Select Service</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="35%" y="50%" fill="#dee2e6" dy=".3em">Select Service</text></svg>
 
                         <img src="http://danfortner.com/splitit/chocolateBirthday.jpeg">
@@ -40,26 +49,44 @@
 					    data-splitit-num-installments="6"
 					    data-splitit-type="product-description">
 					</div>
-
                 </div>
+
+<!-- Step 3: Page implementing Flex Fields -->
                 <div class="col"></div>
+                        <div class="card" style="width: 20rem;">
+                        
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Pay for Service</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="25%" y="50%" fill="#dee2e6" dy=".3em">Pay For Service</text></svg>
+
+                        <img src="http://danfortner.com/splitit/checkout.png">
+                        
+                        <div class="card-body">
+                          <h5 class="card-title">Checkout to reserve service</h5>
+                          <p class="card-text">Once payment is made, your reservation is booked.  Our chocolateer will then call you to find out the cocoa details.</p><br>
+                        </div>
+                        <div style="padding-bottom: 10px; margin-bottom: 10px;">
+        					<button type="button" onclick="flexFields.show()">Pay with Splitit</button>
+    					</div>
+    					<div class="splitit-design-classic" data-splitit-auto-align="standard" id="splitit-card-data"></div>
+                    </div>
+                </div>
                 <div class="col"></div>
             </div>
         </section>
     </main>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://flexfields.sandbox.splitit.com/v2.0/splitit.flex-fields.sdk.js"></script>
 
+<!-- upstream messaging -->
     <script>
 
-   	var activities = document.getElementById("prod01");
+    	//listen for dropdown changes
+	   	var activities = document.getElementById("prod01");
 
-
-    activities.addEventListener("change", function() {
-        
-            priceChanged(activities.value);
-        
-    });
+	    activities.addEventListener("change", function() {
+	    	priceChanged(activities.value);    
+	    });
 
     function priceChanged(newValue){
         // Set the splitit amount with a new value when dropdown used
@@ -68,11 +95,75 @@
         // refresh placement with new information
         splitit.ui.refresh();
     }
+
+    	//Splitit  initialization function
         (function(i,s,o,g,r,a,m){i['SplititObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window, document, 'script', '//upstream.production.splitit.com/v1/dist/upstream-messaging.js?v=1', 'splitit');
         splitit('init', { apiKey:  'a2b42524-4337-4bf9-a100-5a4f247d2d28', lang: 'en', currency: 'USD', currencySymbol: '$', debug: false });
+    </script>
+
+<!-- flex fields -->
+    <script>
+        var flexFields = Splitit.FlexFields.setup({
+                // debug: true, // <<-- uncomment for extended errors
+                culture: "en-US",
+                publicToken: "4363d54613104210964ff94e47a9200c",
+                container: "#splitit-card-data",
+                fields: {
+                    cardholderName: {
+                      selector: "#splitit-cardholder-name"
+                    },
+                    number: {
+                        selector: "#splitit-card-number"
+                    },
+                    cvv: {
+                        selector: "#splitit-cvv"
+                    },
+                    expirationDate: {
+                        selector: "#splitit-expiration-date"
+                    }
+                },
+                installmentPicker: {
+                    selector: "#splitit-installment-picker"
+                },
+                termsConditions: {
+                    selector: "#splitit-terms-conditions"
+                },
+                errorBox: {
+                    selector: "#splitit-error-box"
+                },
+                paymentButton: {
+                    selector: "#splitit-btn-pay"
+                },
+                billingAddress: {
+                    addressLine: "260 Madison Avenue.",
+                    addressLine2: "Apartment 1",
+                    city: "New York",
+                    state: "NY",
+                    country: "USA",
+                    zip: "10016"
+                },
+                consumerData: {
+                    fullName: "John Smith",
+                    email: "JohnS@splitit.com",
+                    phoneNumber: "1-844-775-4848",
+                    cultureName: "en-us"
+                }
+            })
+            .ready(function () {
+     
+            })
+            .onSuccess(function (result) {
+                 // Respond here if payment goes well (Flex Fields object descriptions are below)
+                console.log(result);
+            })
+            .onError(function (err) {
+                // Payment failed, error object will have the details (Flex Fields object descriptions are below)
+                console.log(err);
+            })
+
     </script>
 
 </body>
