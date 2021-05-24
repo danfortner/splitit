@@ -67,6 +67,9 @@
         					<button type="button" onclick="flexFields.show()">Pay with Splitit</button>
     					</div>
     					<div class="splitit-design-classic" data-splitit-auto-align="standard" id="splitit-card-data"></div>
+    					
+    				<button id="refundButton" disabled>refund</button>
+    
                     </div>
                 </div>
                 <div class="col"></div>
@@ -102,14 +105,19 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window, document, 'script', '//upstream.production.splitit.com/v1/dist/upstream-messaging.js?v=1', 'splitit');
         splitit('init', { apiKey:  'a2b42524-4337-4bf9-a100-5a4f247d2d28', lang: 'en', currency: 'USD', currencySymbol: '$', debug: false });
+
     </script>
 
 <!-- flex fields -->
     <script>
+    	//backend.login(username, password);
+    	//backend.initiate(sessionID, apiKey);
+    	//backend.create(sessionID, apiKey);
+
         var flexFields = Splitit.FlexFields.setup({
-                // debug: true, // <<-- uncomment for extended errors
+                debug: true, // <<-- uncomment for extended errors
                 culture: "en-US",
-                publicToken: "4363d54613104210964ff94e47a9200c",
+                publicToken: "c2747a13-f5c8-44c8-a8a1-b871b0b297ee",
                 container: "#splitit-card-data",
                 fields: {
                     cardholderName: {
