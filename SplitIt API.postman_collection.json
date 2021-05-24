@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "346cbb36-ef34-4f64-83cc-e12f2369f745",
+		"name": "SplitIt API",
+		"description": "<h2>Welcome</h2>\r\n<p>Welcome to Splitit API reference, this document details the supported services and the parameters required to be sent to each of our services.</p>\r\n<p>Before starting to use this document, it is recommended to read our <a href=\"https://www.splitit.com/for-developers/\">solution overview</a>&nbsp;in order to choose the best solution for your needs.</p>\r\n<p>&nbsp;</p>\r\n<h2>Prerequisite &nbsp;</h2>\r\n<p>&nbsp;</p>\r\n<p>In order to start working you will need the following credentials:</p>\r\n<ul>\r\n<li>UserName -&nbsp;The username of your API user in Splitit system</li>\r\n<li>Password -&nbsp;The password&nbsp;of your API user in Splitit system</li>\r\n<li>ApiKey - Your terminal API key</li>\r\n</ul>\r\n<p>You can receive the credentials from your Splitit onboarding contact. please don't hesitate and shoot us an email at&nbsp;<a href=\"mailto:onboarding@splitit.com\">onboarding@splitit.com</a></p>\r\n<p>&nbsp;</p>\r\n<h2>Sandbox and Production&nbsp;<strong>environments</strong></h2>\r\n<p>Development should be done on our sandbox environment, once&nbsp;development completed,&nbsp;please contact your onboarding reference for approval and credentials to the production&nbsp;environment</p>\r\n<ul>\r\n<li>Sandbox:\r\n<ul>\r\n<li>URL -&nbsp;<a href=\"https://web-api-sandbox.splitit.com\">https://web-api-sandbox.splitit.com</a></li>\r\n<li>Test Cards (any other card will result an error \"Unrecognized card\" ) :\r\n<ul>\r\n<li>Visa:&nbsp;4111 1111 1111 1111</li>\r\n<li>Master Card:&nbsp;5555 5555 5555 4444</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>Production\r\n<ul>\r\n<li>URL -&nbsp;&nbsp;<a href=\"https://web-api.splitit.com\">https://web-api.splitit.com</a></li>\r\n</ul>\r\n</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<h2>API Reference content</h2>\r\n<p>Each service contains the&nbsp;following details:</p>\r\n<ol>\r\n<li>Service rout&nbsp;</li>\r\n<li>General description of the service&nbsp;</li>\r\n<li>Detailed request parameters description</li>\r\n<li>Detailed response parameters&nbsp;description</li>\r\n<li>Data required to be sent in the request header&nbsp;</li>\r\n<li><strong>Example for Json data body</strong> required to be sent in&nbsp;body</li>\r\n<li>Code Example (choose your preferred language on the selection list located in the right bar)</li>\r\n</ol>\r\n<h2>&nbsp;</h2>\r\n<h2>Common overview (for all Requests and Responses)</h2>\r\n<h4>General&nbsp;</h4>\r\n<p>Our services are implemented as simple and standard HTTP POST requests with single header parameter (Content-Type = application/json) and Json body with specific schema for each request.</p>\r\n<p>&nbsp;</p>\r\n<h4>Request</h4>\r\n<p>Each&nbsp;request body (other than login) must contain element called RequestHeader which contain the following&nbsp;parameters:</p>\r\n<ul>\r\n<li>SessionId - the session received by the login request (see request below)</li>\r\n<li>ApiKey&nbsp;- the terminal api key received by your Splitit onboarding contact.</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<h4>Response</h4>\r\n<p>Each response contain element called ResponseHeader which contain the following&nbsp;parameters:</p>\r\n<ul>\r\n<li>Succeeded&nbsp;-&nbsp;boolean parameter indicating if the request succeeded or failed (true - succeeded, false-failed).<br /><br /></li>\r\n<li>Errors - Array of errors, populated whenever response failed (succeeded=false) , each element in the errors contain error code and error description, error description can be displayed to users. <br /><span style=\"text-decoration: underline;\"><strong>Remark</strong></span> - on current version, only first element in error collection is populated. &nbsp;</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p><span style=\"text-decoration: underline;\"><strong>Important:</strong></span>&nbsp;Each response must be verified it succeeded as following:</p>\r\n<p>1) HTTP Status code = 200 -&nbsp;indicating there was no network or infrastructure error</p>\r\n<p>2) ResponseHeader.Succeeded=true - applicative check indicating&nbsp;all business validation succeeded and the operation done successfully.&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p><span style=\"text-decoration: underline;\"><strong>********************End of introduction:********************</strong></span></p>\r\n<p><span style=\"text-decoration: underline;\"><strong>Please refer to your specific request after choosing your solution from our&nbsp;<a href=\"https://www.splitit.com/for-developers/\">SDK documentation</a></strong></span></p>\r\n<p>&nbsp;</p>\r\n<hr /><hr />\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "backend.login(user,pass)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"//postman.setEnvironmentVariable(\"SessionId\", data.SessionId);",
+							"pm.globals.set(\"SessionId\", data.SessionId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"UserName\":\"APIUser000032861\",\n    \"Password\":\"zA33JmMzhqGfWAkOYhBzxY1Hi6OSWbJgPF8GiH3359f6Z263yO\"\n}\n"
+				},
+				"url": {
+					"raw": "https://webapi.sandbox.splitit.com/api/Login?format=json",
+					"protocol": "https",
+					"host": [
+						"webapi",
+						"sandbox",
+						"splitit",
+						"com"
+					],
+					"path": [
+						"api",
+						"Login"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				},
+				"description": "<h2>Description:</h2>\r\n<p>The authentication will allow your server\\application to connect with Splitit services by session returned from the Login service.</p>\r\n<p>Authentication should be done with API credentials (Username and Password) you must receive from your Splitit onboarding contact. If you are looking to get your credentials, please don't hesitate and shoot us an email at <a href=\"mailto:onboarding@splitit.com\">onboarding@splitit.com</a>.</p>\r\n<p>&nbsp;</p>\r\n<p>Please notice:</p>\r\n<p>1) The credentials and the resulted session should be kept secured on your server&nbsp;and should never be exposed to client side.</p>\r\n<p>2) Splitit session is valid for 20 min.</p>\r\n<p>&nbsp;</p>\r\n<h2>Request&nbsp;parameters</h2>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Username <br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>The username of your API user in Splitit system</td>\r\n</tr>\r\n<tr>\r\n<td>Password <br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>The password of your API user in Splitit system</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>\r\n<h2>Response:</h2>\r\n<p>* for information about response header, please check response header description in introduction.</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>SessionId</td>\r\n<td>String</td>\r\n<td>The response SessionId</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>"
+			},
+			"response": []
+		},
+		{
+			"name": "backend.initiate(session,api)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"InstallmentPlanNumber\", data.InstallmentPlan.InstallmentPlanNumber);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"RequestHeader\": {\r\n    \"SessionId\": \"{{SessionId}}\",\r\n    \"ApiKey\": \"{{ApiKey}}\"\r\n  },\r\n  \"PlanData\": {\r\n    \"Amount\": {\"Value\": 50,\"CurrencyCode\": \"USD\"},\r\n    \"NumberOfInstallments\": 3,    \r\n    \"RefOrderNumber\": \"012AB\",\r\n    \"AutoCapture\": true,\r\n    \"ExtendedParams\": {\r\n      \"AnyParameterKey1\": \"AnyParameterVal1\",\r\n      \"AnyParameterKey2\": \"AnyParameterVal2\"\r\n    }\r\n  },\r\n  \"BillingAddress\": {\r\n    \"AddressLine\": \"260 Madison Avenue.\",\r\n    \"AddressLine2\": \"Appartment 1\",\r\n    \"City\": \"New York\",\r\n    \"State\": \"NY\",\r\n    \"Country\": \"USA\",\r\n    \"Zip\": \"10016\"\r\n  },\r\n  \"ConsumerData\": {\r\n    \"FullName\": \"John Smith\",\r\n    \"Email\": \"JohnS@splitit.com\",\r\n    \"PhoneNumber\": \"1-844-775-4848\",\r\n    \"CultureName\": \"en-us\"\r\n  },\r\n  \"PaymentWizardData\": {\r\n    \"RequestedNumberOfInstallments\": \"2,3,4\"\r\n  },\r\n  \"RedirectUrls\": {\r\n    \"Succeeded\": \"https://www.success.com/\",\r\n    \"Failed\": \"https://www.failed.com/\",\r\n    \"Canceled\": \"https://www.canceled.com/\"\r\n  },\r\n  \"EventsEndpoints\": {\r\n    \"CreateSucceeded\": \"https://www.async-success.com/\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/InstallmentPlan/Initiate?format=json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"InstallmentPlan",
+						"Initiate"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				},
+				"description": "<h2>Description:</h2>\r\n<p>The initiate service allows your server\\application to&nbsp;start transaction with Splitit.</p>\r\n<p>Common use case for running Initiate request is to open Splitit payment wizard (see&nbsp;<a href=\"https://www.splitit.com/for-developers/hosted-solution/\" target=\"_blank\" rel=\"noopener\">hosted payment solution</a>)&nbsp;from merchant checkout - in that case, the initiate should be called with all available data related to the order (ex: Order number, Amount) , shopper information (name, email, billing address) and Exit URLs (Success\\Cancel\\Error) that will redirect the wizard back to the merchant checkout for each state.&nbsp;</p>\r\n<p>As part of a success response, you will get a checkout URL which will open&nbsp;Splitit payment wizard where shopper will enter credit card details and complete the order.</p>\r\n<p>Initiate can be called single time or many times, each time with additional data, so if your checkout contains few sections\\pages you may call Initate each section and get Splitit validations response immediately.</p>\r\n<p>&nbsp;</p>\r\n<h2>Request&nbsp;parameters :</h2>\r\n<p>* For information about request&nbsp;header that need to be sent as part of every transaction, please check request&nbsp;header description in introduction.</p>\r\n<h4>Plan Data&nbsp;</h4>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Amount<br /><strong>required</strong></td>\r\n<td>Amount</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The order total amount, includes:</p>\r\n<p>Value (decimal). Example - 305.50</p>\r\n<p>CurrencyCode (string) - should be in a format of&nbsp;ISO 4217 currency. Example - USD</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>PurchaseMethod</td>\r\n<td>String</td>\r\n<td>&nbsp;ECommerce</td>\r\n<td>\r\n<p>The method the purchase is done,<br />Choose one of the following :</p>\r\n<ol>\r\n<li>InStore &ndash; physical store purchase</li>\r\n<li>PhoneOrder &ndash; phone order</li>\r\n<li>Ecommerce &ndash; purchase on Ecommerce site</li>\r\n</ol>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>RefOrderNumber</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Reference merchant order number.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>AutoCapture</td>\r\n<td>Boolean</td>\r\n<td>\r\n<p>&nbsp;Default*</p>\r\n</td>\r\n<td>\r\n<p>Indicates if to capture the first installment automatically when creating the plan <br />or to wait for explicit indication to&nbsp;do the first capture.</p>\r\n<p><br />* The default behavior is defined in your merchant account at splitit.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>FirstInstallmentAmount</td>\r\n<td>Amount</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The first installment amount.</p>\r\n<p>Should be&nbsp;populated only if first installment amount is different from the following installments amounts (ex: includes shipping amount as part of the first installment).</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>FirstChargeDate</td>\r\n<td>Date</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The first installment date.</p>\r\n<p>Should be&nbsp;populated only if first installment date is&nbsp;not scheduled to the plan creation date.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>Attempt3DSecure</td>\r\n<td>&nbsp;Boolean</td>\r\n<td>&nbsp;False</td>\r\n<td>\r\n<p>Indicate&nbsp;whether to try and attempt running 3D secure transaction.</p>\r\n<p>Please notice:</p>\r\n<p>1) Please check with Splitit support if your account settings allow performing 3D secure transactions.</p>\r\n<p>2) In order to run 3D secure , you will need to populate&nbsp;redirect Urls (Success\\Error), please follow the documentation regarding&nbsp;RedirectUrls below</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>ExtendedParams</td>\r\n<td>ExtendedParams</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Any merchant parameter he would like to capture on the plan (ex: secondary order number). those parameters can later be queried.</p>\r\n<p>Example:</p>\r\n<p>\"ExtendedParams\": {<br />\"AnyParameterKey1\": \" AnyParameterVal1\",<br />\"AnyParameterKey2\": \" AnyParameterVal2\"<br />}</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h3>&nbsp;</h3>\r\n<p>&nbsp;</p>\r\n<h4>Consumer Data &nbsp;</h4>\r\n<p>* Consume data&nbsp;element is not mandatory as part of the initiate service, If consumer data is not supplied as part of initiate service, it will need to be added&nbsp;later (manually by shopper in payment wizard or by API create&nbsp;service).</p>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>FullName<br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>&nbsp;Shopper full name</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Email</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>Shopper email &nbsp;</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>PhoneNumber</p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Shopper&nbsp;number&nbsp;</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CultureName</p>\r\n</td>\r\n<td>String</td>\r\n<td>\r\n<p>&nbsp;en-us</p>\r\n</td>\r\n<td>\r\n<p>Shopper culture&nbsp;</p>\r\n<p>Notice - All Splitit interactions with shopper (payment wizard language, emails, shopper portal) will be affected from this choice. shopper will be able to change this option from shopper portal.</p>\r\n<p>Contact splitit support for complete list of supported cultures &nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>Billing Address&nbsp;</h4>\r\n<p>* Billing address element is not mandatory as part of the initiate service, If billing address not supplied in initiate and is required as part of merchant policy, billing address will need to be added&nbsp;later (manually by shopper in payment wizard or by API create&nbsp;service).</p>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>AddressLine<br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Street, Number.&nbsp;(free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>AddressLine2</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Apartment, Suit etc&nbsp;(free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>City</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>City name (free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>State</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>\r\n<p>&nbsp;</p>\r\n</td>\r\n<td>\r\n<p>Can be one of the following options:</p>\r\n<ul>\r\n<li>ISO 3166-2 codes of each state&nbsp;(Example: \"NY\")</li>\r\n<li>English short state&nbsp;name officially used by the ISO 3166&nbsp;(Example: \"New York\")</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Country</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Can be one of the following options:</p>\r\n<ul>\r\n<li>ISO 3166-1 alpha-2 code (Example: \"US\")</li>\r\n<li>ISO 3166-1 alpha-3&nbsp;(Example: \"USA\")</li>\r\n<li>English short country name officially used by the ISO 3166&nbsp;</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Zip</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Zip code</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>Payment Wizard Data&nbsp;</h4>\r\n<p>*&nbsp;Payment wizard data is only&nbsp;required&nbsp;when working in <a href=\"https://www.splitit.com/for-developers/hosted-solution/\" target=\"_blank\" rel=\"noopener\">hosted payment solution</a>&nbsp;in order to indicate some parameters related to the payment wizard&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<table style=\"height: 154px;\" width=\"443\">\r\n<thead>\r\n<tr>\r\n<th style=\"width: 233px;\">Parameter</th>\r\n<th style=\"width: 43px;\">Type</th>\r\n<th style=\"width: 58px;\">Default</th>\r\n<th style=\"width: 115px;\">Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td style=\"width: 233px;\">RequestedNumberOfInstallments</td>\r\n<td style=\"width: 43px;\">String</td>\r\n<td style=\"width: 58px;\">&nbsp;</td>\r\n<td style=\"width: 115px;\">\r\n<p>Comma separated string contains all&nbsp;options to display to shopper in payment wizard, if not supplied will display default configuration&nbsp;on merchant from terminal.</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>RedirectUrls&nbsp;</h4>\r\n<p>*&nbsp;Redirect URLs are only&nbsp;required&nbsp;when working with&nbsp;<a href=\"https://www.splitit.com/for-developers/hosted-solution/\" target=\"_blank\" rel=\"noopener\">hosted payment solution</a>&nbsp;or with 3D secure mode&nbsp;&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<table style=\"height: 154px;\" width=\"443\">\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Succeeded</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Relevant both when working with payment form or 3D secure</p>\r\n<p>The URL shopper will be redirected from payment wizard or 3d secure redirection when&nbsp;order is completed successfully&nbsp;</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Canceled</p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Relevant only when working with payment form&nbsp;</p>\r\n<p>The URL shopper will be redirected from payment wizard&nbsp;when shopper clicks cancel on payment wizard</p>\r\n<p>&nbsp;</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Failed</p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Relevant only when working with 3d secure</p>\r\n<p>The URL shopper will be redirected from 3d secure when 3d secured declines the transaction&nbsp;</p>\r\n<p>&nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>EventsEndpoints</h4>\r\n<p>Used to notify about events that happen during the lifetime of installment plan.&nbsp; Currently only registration&nbsp;to CreateSucceeded event is supported by API , for full list of optional events , please refer to webhooks <a href=\"https://www.splitit.com/for-developers/webhooks/\">documentation</a></p>\r\n<table style=\"height: 154px;\" width=\"443\">\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>CreateSucceeded</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>URL that will be called from Splitit server after transaction is created on Splitit, This URL will be called asynchronous&nbsp;to make sure the caller got notified that the plan was created successfully and finalize the order. This URL will also be concatenated with unique installment plan number parameter and the order reference number sent originally in the initiate request.</p>\r\n<p>example:</p>\r\n<p>[CreateSucceededURL]</p>\r\n<p>&amp;RefOrderNumber=a123</p>\r\n<p>&amp;InstallmentPlanNumber=013434).</p>\r\n<p>&nbsp;This URL will be called each hour for 24 hours until http response 200 will be returned from caller&nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2><br />Response:</h2>\r\n<p>* For important information about checking the response validity in response header, please check response header description in introduction.</p>\r\n<p>* Please notice that only small part of the response is described below, for full API description, please refer to the following&nbsp;<a href=\"https://www.splitit.com/entities-documentation/\">documentation</a></p>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>CheckoutUrl</td>\r\n<td>String</td>\r\n<td>URL that opens Splitit wizard that enables complete the order payment by shopper</td>\r\n</tr>\r\n<tr>\r\n<td>PublicToken</td>\r\n<td>String</td>\r\n<td>Token that can be used as a session to additional limited API services (Create\\Approve\\Get) for the specific installment plan</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>InstallmentPlanNumber</p>\r\n<p>(Part of InstallmentPlan entity)</p>\r\n</td>\r\n<td>String</td>\r\n<td>Unique installment plan number that identify this transaction.&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>"
+			},
+			"response": []
+		},
+		{
+			"name": "backend.create(session,api)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"InstallmentPlanNumber\", data.InstallmentPlan.InstallmentPlanNumber);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"RequestHeader\": {\r\n   \"SessionId\": \"{{SessionId}}\",\r\n   \"ApiKey\": \"{{ApiKey}}\"\r\n   },\r\n   \"PlanData\": {\r\n      \"Amount\": {\"Value\": 55, \"CurrencyCode\":\"USD\"},\r\n      \"NumberOfInstallments\": 3,\r\n      \"RefOrderNumber\": \"XYZ\",\r\n      \"AutoCapture\": true\r\n   },\r\n   \"BillingAddress\": {\r\n        \"AddressLine\": \"260 Madison Avenue.\",\r\n        \"AddressLine2\": \"Appartment 1\",\r\n        \"City\": \"New York\",\r\n        \"State\": \"NY\",\r\n        \"Country\": \"USA\",\r\n        \"Zip\": \"10016\"\r\n   },\r\n   \"ConsumerData\": {\r\n        \"FullName\": \"John Smith\",\r\n        \"Email\": \"JohnS@splitit.com\",\r\n        \"PhoneNumber\": \"1-844-775-4848\",\r\n        \"CultureName\": \"en-us\"\r\n   },\r\n   \"CreditCardDetails\": { \r\n      \"CardCvv\": \"123\", \r\n      \"CardHolderFullName\": \"John Smith\",\r\n      \"CardNumber\": \"4111111111111111\", \r\n      \"CardExpYear\": \"2019\", \r\n      \"CardExpMonth\": \"8\"\r\n   }  ,\r\n   \"PlanApprovalEvidence\": {\r\n      \"AreTermsAndConditionsApproved\": \"True\"\r\n   }\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/InstallmentPlan/Create?format=json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"InstallmentPlan",
+						"Create"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				},
+				"description": "<h2>Description:</h2>\r\n<p>The create&nbsp;service allows your server\\application complete&nbsp;transaction with Splitit.</p>\r\n<p>Common use case for running create&nbsp;request is for integrations where all interactions with shopper (including taking payment details) are done on merchant\\integrator side. Although the create can be called independently with all required data to start and complete transaction (ex: Order number, Amount) , shopper information (name, email, billing address) and payment details, it is usually called after plan was initiated (see initiate call)&nbsp; and only add the credit card detail and approval evidence required to complete the payment , Please&nbsp;read more about this from our <a href=\"https://www.splitit.com/for-developers/web-api-solution/\">documentation</a>.</p>\r\n<p>The create&nbsp;service validates that all required data exist and valid and call the merchant's&nbsp;gateway to try and authorize the plan. in case of failure while trying to create an order (ex: Missing email, invalid expiration date, card declined by processor), clear error message will be retrieved as part of &nbsp;the response, this error should be displayed to the user that tries to complete the order so he will be able to complete\\fix the required data.</p>\r\n<h2>Request&nbsp;parameters :</h2>\r\n<p>* For information about request&nbsp;header that need to be sent as part of every transaction, please check request&nbsp;header description in introduction.</p>\r\n<h4>Plan Data&nbsp;</h4>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Amount<br /><strong>required</strong></td>\r\n<td>Amount</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The order total amount, includes:</p>\r\n<p>Value (decimal). Example - 305.50</p>\r\n<p>CurrencyCode (string) - should be in a format of&nbsp;ISO 4217 currency. Example - USD</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>PurchaseMethod</td>\r\n<td>String</td>\r\n<td>&nbsp;ECommerce</td>\r\n<td>\r\n<p>The method the purchase is done,<br />Choose one of the following:</p>\r\n<ol>\r\n<li>InStore &ndash; physical store purchase</li>\r\n<li>PhoneOrder &ndash; phone order</li>\r\n<li>Ecommerce &ndash; purchase on Ecommerce site</li>\r\n</ol>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>RefOrderNumber</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Reference merchant order number.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>AutoCapture</td>\r\n<td>Boolean</td>\r\n<td>\r\n<p>&nbsp;Default*</p>\r\n</td>\r\n<td>\r\n<p>Indicates if to capture the first installment automatically when creating the plan <br />or to wait for explicit indication to&nbsp;do the first capture.</p>\r\n<p><br />* The default behavior is defined in your merchant account at Splitit.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>FirstInstallmentAmount</td>\r\n<td>Amount</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The first installment amount.</p>\r\n<p>Should be&nbsp;populated only if first installment amount is different from the following installments amounts (ex: includes shipping amount as part of the first installment).</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>FirstChargeDate</td>\r\n<td>Date</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>The first installment date.</p>\r\n<p>Should be&nbsp;populated only if first installment date is&nbsp;not scheduled to the plan creation date.</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>ExtendedParams</td>\r\n<td>ExtendedParams</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Any merchant parameter he would like to capture on the plan (ex: secondary order number). those parameters can later be queried.</p>\r\n<p>Example:</p>\r\n<p>\"ExtendedParams\": {<br />\"AnyParameterKey1\": \" AnyParameterVal1\",<br />\"AnyParameterKey2\": \" AnyParameterVal2\"<br />}</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h3>&nbsp;</h3>\r\n<p>&nbsp;</p>\r\n<h4>Consumer Data &nbsp;</h4>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>FullName<br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>&nbsp;Shopper full name</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Email</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>Shopper email &nbsp;</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>PhoneNumber</p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Shopper&nbsp;number&nbsp;</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CultureName</p>\r\n</td>\r\n<td>String</td>\r\n<td>\r\n<p>&nbsp;en-us</p>\r\n</td>\r\n<td>\r\n<p>Shopper culture&nbsp;</p>\r\n<p>Notice - All Splitit interactions with shopper (payment wizard language, emails, shopper portal) will be affected from this choice. shopper will be able to change this option from shopper portal.</p>\r\n<p>Please contact Splitit support for complete list of supported cultures &nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>Billing Address&nbsp;</h4>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>AddressLine<br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Street, Number.&nbsp;(free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>AddressLine2</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Apartment, Suit etc&nbsp;(free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>City</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>City name (free text)</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>State</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>\r\n<p>&nbsp;</p>\r\n</td>\r\n<td>\r\n<p>Can be one of the following options:</p>\r\n<ul>\r\n<li>ISO 3166-2 codes of each state&nbsp;(Example: \"NY\")</li>\r\n<li>English short state&nbsp;name officially used by the ISO 3166&nbsp;(Example: \"New York\")</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Country</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Can be one of the following options:</p>\r\n<ul>\r\n<li>ISO 3166-1 alpha-2 code (Example: \"US\")</li>\r\n<li>ISO 3166-1 alpha-3&nbsp;(Example: \"USA\")</li>\r\n<li>English short country name officially used by the ISO 3166&nbsp;</li>\r\n</ul>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>Zip</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Zip code</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<h4>Credit Card Details&nbsp;</h4>\r\n<p>&nbsp;</p>\r\n<table style=\"height: 154px;\" width=\"443\">\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>\r\n<p>CardNumber</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Valid credit card number</p>\r\n<p>Example:4111111111111111</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CardCvv</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Valid card security code&nbsp;&nbsp;</p>\r\n<p>Example:123</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CardExpYear</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Valid card expiration year&nbsp;</p>\r\n<p>Example:2019</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CardExpMonth</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Valid card expiration&nbsp;month&nbsp;</p>\r\n<p>Example: 08 or 8</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>CardHolderFullName</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>\r\n<p>Card holder full name&nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;&nbsp;</h2>\r\n<h4>Payment Token&nbsp;</h4>\r\n<p>Payment token allows running new transactions for credit card that was already used with Splitit.&nbsp; The token represents Credit card details and Consumer data that was previously returned&nbsp;from Splitit server as a response to Create installment plan transaction (see <a href=\"https://www.splitit.com/entities-documentation/\">documentation</a> of CardData.Token in entities documentation).&nbsp;</p>\r\n<p>Sending payment token element replace the need to keep and send&nbsp;Credit card details , Consumer data and Billing Address on merchant side for new transactions of the same card .</p>\r\n<table style=\"height: 189px;\" width=\"444\">\r\n<thead>\r\n<tr>\r\n<th style=\"width: 87px;\">Parameter</th>\r\n<th style=\"width: 45px;\">Type</th>\r\n<th style=\"width: 61px;\">Default</th>\r\n<th style=\"width: 223px;\">Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td style=\"width: 87px;\">\r\n<p>Token</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td style=\"width: 45px;\">String</td>\r\n<td style=\"width: 61px;\">&nbsp;</td>\r\n<td style=\"width: 223px;\">\r\n<p>Token returned from previous transaction from Splitit server</p>\r\n<p>Example:56b0096f-59ee-48dc-a7d8-321ad0abf60a</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=\"width: 87px;\">\r\n<p>Type</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td style=\"width: 45px;\">String</td>\r\n<td style=\"width: 61px;\">&nbsp;</td>\r\n<td style=\"width: 223px;\">\r\n<p>The token type -&nbsp;</p>\r\n<p>For Splitit Token send \"SplititStoredCard\"</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=\"width: 87px;\">&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;</h2>\r\n<p>&nbsp;</p>\r\n<h4>Plan Approval Evidence</h4>\r\n<p>&nbsp;</p>\r\n<table style=\"height: 154px;\" width=\"443\">\r\n<thead>\r\n<tr>\r\n<th>Parameter</th>\r\n<th>Type</th>\r\n<th>Default</th>\r\n<th>Description</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>\r\n<p>AreTermsAndConditionsApproved</p>\r\n<p><strong>required</strong></p>\r\n</td>\r\n<td>Boolean</td>\r\n<td>False&nbsp;</td>\r\n<td>\r\n<p>Splitit requires integrations to display terms and conditions and get shopper&nbsp;approval&nbsp;before first installment is charged. True indication on this field , indicates, shopper has approved the terms and conditions&nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>&nbsp;&nbsp;</h2>\r\n<h2>Response:</h2>\r\n<p>* For important information about checking the response validity in response header, please check response header description in introduction.</p>\r\n<p>* Please notice that only small part of the response is described below, for full API description, please refer to the following&nbsp;<a href=\"https://www.splitit.com/entities-documentation/\">documentation</a></p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<table>\r\n<thead>\r\n<tr>\r\n<th><span style=\"font-weight: 400;\">Parameter</span></th>\r\n<th><span style=\"font-weight: 400;\">Type</span></th>\r\n<th><span style=\"font-weight: 400;\">Description</span></th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>ApprovalUrl</td>\r\n<td>String</td>\r\n<td>URL that opens Splitit approval page</td>\r\n</tr>\r\n<tr>\r\n<td>PublicToken</td>\r\n<td>String</td>\r\n<td>Token that can be used as a session to additional limited API services (Create\\Approve\\Get) for the specific installment plan</td>\r\n</tr>\r\n<tr>\r\n<td>\r\n<p>InstallmentPlanNumber</p>\r\n<p>(Part of InstallmentPlan entity)</p>\r\n</td>\r\n<td>String</td>\r\n<td>Unique installment plan number that identify this transaction.&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>"
+			},
+			"response": []
+		},
+		{
+			"name": "backend.refund(session,api)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"RequestHeader\": {\r\n   \"SessionId\": \"{{SessionId}}\",\r\n   \"ApiKey\": \"{{ApiKey}}\"\r\n},\r\n    \"InstallmentPlanNumber\": \"{{InstallmentPlanNumber}}\",\r\n  \"Amount\": {\"Value\": \"15\"},\r\n    \"RefundStrategy\": \"FutureInstallmentsFirst\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/InstallmentPlan/Refund?format=json",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"InstallmentPlan",
+						"Refund"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				},
+				"description": "<p>&nbsp;</p>\r\n<h2>Description:</h2>\r\n<p>This service allows partial or full refund in few different&nbsp;methods:</p>\r\n<ul>\r\n<li><strong>FutureInstallmentsFirst (default)</strong> - The service will try to reduce the refund amount from the plan's outstanding amount (future installments that were still not charged ) prior to already charged installments. if the refund amount is bigger than the outstanding amount, it will than start to refund already charged&nbsp;installments.&nbsp;</li>\r\n<li><strong>FutureInstallmentsLast</strong> =&nbsp;The service will try to refund amount from already charged installments, if the refund amount is bigger than the total charged amount, &nbsp;it will than start to reduce the refund amount from the plan's outstanding amount.</li>\r\n<li><strong>FutureInstallmentsNotAllowed</strong> =&nbsp;The service will try to refund amount only from already charged installments.</li>\r\n</ul>\r\n<h2>Request&nbsp;parameters</h2>\r\n<p>* For information about request&nbsp;header that need to be sent as part of every transaction, please check request&nbsp;header description in introduction.&nbsp;</p>\r\n<table style=\"height: 136px;\" width=\"505\">\r\n<thead>\r\n<tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>InstallmentPlanNumber<br /><strong>required</strong></td>\r\n<td>String</td>\r\n<td>&nbsp;</td>\r\n<td>The&nbsp;installment plan unique number</td>\r\n</tr>\r\n<tr>\r\n<td>Amount</td>\r\n<td>Amount</td>\r\n<td>&nbsp;Null</td>\r\n<td>\r\n<p><strong>Important</strong>: If full amount is requested, this&nbsp;element should not be added</p>\r\n<p>The refund amount, includes:</p>\r\n<p>Value (decimal). Example - 305.50</p>\r\n<p>CurrencyCode (string) - should be in a format of&nbsp;ISO 4217 currency. Example - USD</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>RefundStrategy</td>\r\n<td>String</td>\r\n<td>&nbsp;NoRefunds</td>\r\n<td>\r\n<p>One of the following values :</p>\r\n<p>FutureInstallmentsFirst</p>\r\n<p>FutureInstallmentsLast</p>\r\n<p>FutureInstallmentsNotAllowed</p>\r\n<p>&nbsp;</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>\r\n<h2>Response:</h2>\r\n<p>* For information about response header, please check response header description in introduction.</p>\r\n<table>\r\n<thead>\r\n<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>InstallmentPlan</td>\r\n<td>InstallmentPlan</td>\r\n<td>full&nbsp;installment plan detailed response, for full information, please refer to the&nbsp;documentation&nbsp;<a href=\"http://www.splitit.com\">here</a></td>\r\n</tr>\r\n</tbody>\r\n</table>"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

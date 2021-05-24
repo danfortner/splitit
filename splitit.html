@@ -110,11 +110,14 @@
 
 <!-- flex fields -->
     <script>
-    	//backend.login(username, password);
+
+        var flexFields = Splitit.FlexFields.setup({
+
+       	//backend authorization and session creation
+        //backend.login(username, password);
     	//backend.initiate(sessionID, apiKey);
     	//backend.create(sessionID, apiKey);
 
-        var flexFields = Splitit.FlexFields.setup({
                 debug: true, // <<-- uncomment for extended errors
                 culture: "en-US",
                 publicToken: "c2747a13-f5c8-44c8-a8a1-b871b0b297ee",
@@ -171,6 +174,12 @@
                 // Payment failed, error object will have the details (Flex Fields object descriptions are below)
                 console.log(err);
             })
+
+        //backend refund functionality
+    	//var splititObject = backend.response();
+    	//function refund(splititObject) = {
+    	//	  backend.refund(sessionId,apiKey);
+    	//};
 
     </script>
 
